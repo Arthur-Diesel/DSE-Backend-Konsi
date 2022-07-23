@@ -8,9 +8,10 @@ it('/benefits ~ 400', async () => {
     expect(response.body).toEqual({
         "success": false,
         "error": [
-            "user: Invalid value",
-            "password: Invalid value",
-            "cpf: Invalid value"
+            "user: user precisa ser informado!",
+            "password: password precisa ser informado!",
+            "cpf: cpf precisa ser informado!",
+            "cpf: cpf precisa ter mais de 11 dígitos!" 
         ]
     })
 })
@@ -25,8 +26,9 @@ it('/benefits ~ 400', async () => {
     expect(response.body).toEqual({
         "success": false,
         "error": [
-            "password: Invalid value",
-            "cpf: Invalid value"
+            "password: password precisa ser informado!",
+            "cpf: cpf precisa ser informado!",
+            "cpf: cpf precisa ter mais de 11 dígitos!" 
         ]
     })
 })
@@ -43,7 +45,25 @@ it('/benefits ~ 400', async () => {
     expect(response.body).toEqual({
         "success": false,
         "error": [
-            "cpf: Invalid value"
+            "cpf: cpf precisa ser informado!",
+            "cpf: cpf precisa ter mais de 11 dígitos!" 
+        ]
+    })
+})
+
+it('/benefits ~ 400', async () => {
+    const response = await request
+        .post('/benefits')
+        .send({
+            user: "arthur",
+            password: "1234",
+            cpf: "123456789"
+        })
+    expect(response.status).toBe(400)
+    expect(response.body).toEqual({
+        "success": false,
+        "error": [
+            "cpf: cpf precisa ter mais de 11 dígitos!" 
         ]
     })
 })
